@@ -17,8 +17,16 @@ cmd = '''
     GROUP BY Biblioteca.nome
     HAVING SUM(Compra.precopago) > 500'''
 cur.execute(cmd)
-print(cur.fetchall())
+print(f'\nGasto no steam (acima de 500):\n{cur.fetchall()}')
 
 # quantas pessoas tem cada jogo (group by)
+cmd = '''
+    SELECT Produto.nome, COUNT(Compra.codigousuario)
+    FROM Compra JOIN Produto ON (Compra.codigoproduto = Produto.codigo)
+        JOIN Jogo ON (Compra.codigoproduto = Jogo.codigoproduto)
+    GROUP BY Produto.nome
+    '''
+cur.execute(cmd)
+print(f'\nQuantas pessoas tem cada jogo:\n{cur.fetchall()}')
 
 conn.close()
