@@ -7,7 +7,7 @@ import psycopg2 as ps
 conn = ps.connect('dbname=brsteam user=postgres password=123')
 cur = conn.cursor()
 
-cur.execute('SELECT * FROM Avaliacao')
+cur.execute('SELECT * FROM Biblioteca')
 print(cur.fetchall())
 
 conn.close()

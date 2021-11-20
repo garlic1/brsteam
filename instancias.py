@@ -217,5 +217,16 @@ cur.execute('''INSERT INTO Mensagem VALUES (3,2,'2021-10-03 21:52:01','eu tb');'
 cur.execute('''INSERT INTO Avaliacao VALUES (730,2,'2021-10-03',10,'Eu william aaaaaaaaaamo counter strike global offensive muuuito bom!!! Recomendo!!');''')
 cur.execute('''INSERT INTO Avaliacao VALUES (391570,2,'2021-10-03',0,'Eu william ODIEI a soundtrack do UNDERTALE. Me doeu os ouvidos. Melhor escutar um quadro sendo arranhado.');''')
 
+cur.execute('''INSERT INTO Compra VALUES (730, 2, 'Boleto', '2013-10-02', 27.49);''')
+cur.execute('''INSERT INTO Compra VALUES (391570, 2, 'Boleto', '2018-10-02', 18.49);''')
+
+conn.commit()
+
+cmd = '''CREATE VIEW Biblioteca AS
+    SELECT Usuario.nome, Produto.nome as NomeProduto FROM 
+    Compra JOIN Usuario ON (Compra.codigousuario = Usuario.codigo)
+      JOIN Produto ON (Produto.codigo = Compra.codigoProduto);'''
+cur.execute(cmd)
+
 conn.commit()
 conn.close()
