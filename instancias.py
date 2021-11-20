@@ -218,7 +218,11 @@ cur.execute('''INSERT INTO Avaliacao VALUES (730,2,'2021-10-03',10,'Eu william a
 cur.execute('''INSERT INTO Avaliacao VALUES (391570,2,'2021-10-03',0,'Eu william ODIEI a soundtrack do UNDERTALE. Me doeu os ouvidos. Melhor escutar um quadro sendo arranhado.');''')
 
 cur.execute('''INSERT INTO Compra VALUES (730, 2, 'Boleto', '2013-10-02', 27.49);''')
-cur.execute('''INSERT INTO Compra VALUES (391570, 2, 'Boleto', '2018-10-02', 18.49);''')
+cur.execute('''INSERT INTO Compra VALUES (391570, 2, 'Boleto', '2018-10-02', 500.49);''')
+cur.execute('''INSERT INTO Compra VALUES (271590, 1, 'Boleto', '2013-10-02', 27.49);''')
+cur.execute('''INSERT INTO Compra VALUES (391570, 1, 'Boleto', '2018-10-02', 45.49);''')
+cur.execute('''INSERT INTO Compra VALUES (218620, 3, 'Boleto', '2013-10-02', 89.49);''')
+cur.execute('''INSERT INTO Compra VALUES (271590, 3, 'Boleto', '2018-10-02', 500.49);''')
 
 conn.commit()
 
