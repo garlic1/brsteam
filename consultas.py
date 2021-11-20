@@ -8,7 +8,7 @@ conn = ps.connect('dbname=brsteam user=postgres password=123')
 cur = conn.cursor()
 
 
-# gasto no steam (acima de 500 reais having) (group by)
+# gasto no steam (acima de 500 reais)
 cmd = '''
     SELECT Biblioteca.nome, SUM(Compra.precopago)
     FROM Biblioteca JOIN Usuario ON (Biblioteca.nome = Usuario.nome)
@@ -19,7 +19,7 @@ cmd = '''
 cur.execute(cmd)
 print(f'\nGasto no steam (acima de 500):\n{cur.fetchall()}')
 
-# quantas pessoas tem cada jogo (group by)
+# quantas pessoas tem cada jogo
 cmd = '''
     SELECT Produto.nome, COUNT(Compra.codigousuario)
     FROM Compra JOIN Produto ON (Compra.codigoproduto = Produto.codigo)
@@ -28,5 +28,19 @@ cmd = '''
     '''
 cur.execute(cmd)
 print(f'\nQuantas pessoas tem cada jogo:\n{cur.fetchall()}')
+
+# quais jogos não suportam meu sistema
+cmd = '''
+    SELECT Produto.nome as nomeproduto
+    FROM Produto JOIN Suporte ON (Produto.codigo = Suporte.codigoProduto)
+        JOIN Sistema ON (Sistema.nome = Suporte.nomeSistema)
+    WHERE Produto.nome NOT IN (
+        SELECT Produto.nome as nomeproduto
+        FROM Produto JOIN Suporte ON (Produto.codigo = Suporte.codigoProduto)
+            JOIN Sistema ON (Sistema.nome = Suporte.nomeSistema)
+        WHERE nomesistema = %s
+    );'''
+cur.execute(cmd, ('Windows',))
+print(f'\nQuais jogos não suportam meu sistema:\n{cur.fetchall()}\n')
 
 conn.close()

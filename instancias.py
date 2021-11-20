@@ -179,6 +179,8 @@ cur.execute('''INSERT INTO usuario VALUES (2,'william','2011-01-09',false);''')
 cur.execute('''INSERT INTO usuario VALUES (3,'alho','2011-01-10',false);''')
 
 cur.execute('''INSERT INTO Produto VALUES (730,'Counter-Strike: Global Offensive','2012-08-21','2021-08-17 15:28:46');''')
+cur.execute('''INSERT INTO Produto VALUES (6784,'Touhou Dirutinea','2019-08-21','2021-11-20 20:22:46');''')
+cur.execute('''INSERT INTO Jogo VALUES(6784, false);''')
 cur.execute('''INSERT INTO Produto VALUES (391570,'UNDERTALE Soundtrack','2015-09-15','2021-10-01 04:05:00',NULL,19.99);''')
 cur.execute('''INSERT INTO Jogo VALUES(730,false);''')
 cur.execute('''INSERT INTO Produto VALUES(271590,'Grand Theft Auto V','2015-04-13','2021-10-01 18:10:00',NULL,69.99);''')
@@ -223,6 +225,11 @@ cur.execute('''INSERT INTO Compra VALUES (271590, 1, 'Boleto', '2013-10-02', 27.
 cur.execute('''INSERT INTO Compra VALUES (391570, 1, 'Boleto', '2018-10-02', 45.49);''')
 cur.execute('''INSERT INTO Compra VALUES (218620, 3, 'Boleto', '2013-10-02', 89.49);''')
 cur.execute('''INSERT INTO Compra VALUES (271590, 3, 'Boleto', '2018-10-02', 500.49);''')
+
+cur.execute('''INSERT INTO Suporte VALUES (730, 'Linux');''')
+cur.execute('''INSERT INTO Suporte VALUES (730, 'Windows');''')
+cur.execute('''INSERT INTO Suporte VALUES (730, 'macOS');''')
+cur.execute('''INSERT INTO Suporte VALUES (391570, 'Linux');''')
 
 conn.commit()
 
