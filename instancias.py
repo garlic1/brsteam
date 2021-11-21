@@ -7,6 +7,7 @@ import psycopg2 as ps
 conn = ps.connect('dbname=brsteam user=postgres password=123')
 cur = conn.cursor()
 
+# Limpeza --------------------------------------------------------------------------------------------------------------
 
 tables = ('Amizade', 'Avaliacao', 'Categorizacao', 'Compra', 'Conquista', 'Desenvolvedor', 'Desenvolvimento', 'DLC',
 'Faixa', 'Genero', 'Jogo', 'Mensagem', 'Produto', 'Publicacao', 'Publicador', 'Sistema', 'Soundtrack', 'Suporte',
@@ -14,6 +15,8 @@ tables = ('Amizade', 'Avaliacao', 'Categorizacao', 'Compra', 'Conquista', 'Desen
 
 for table in tables:
   cur.execute(f'DROP TABLE IF EXISTS {table} CASCADE')
+
+# Esquemas -------------------------------------------------------------------------------------------------------------
 
 cur.execute(
 '''CREATE TABLE IF NOT EXISTS Usuario(
@@ -171,6 +174,8 @@ cur.execute(
 
 conn.commit()
 
+# Inserções ------------------------------------------------------------------------------------------------------------
+
 cur.execute('''INSERT INTO sistema VALUES('Windows');''')
 cur.execute('''INSERT INTO sistema VALUES('macOS');''')
 cur.execute('''INSERT INTO sistema VALUES('Linux');''')
@@ -178,15 +183,19 @@ cur.execute('''INSERT INTO usuario VALUES (1,'lucanofraga2','2011-01-08',true);'
 cur.execute('''INSERT INTO usuario VALUES (2,'william','2011-01-09',false);''')
 cur.execute('''INSERT INTO usuario VALUES (3,'alho','2011-01-10',false);''')
 
-cur.execute('''INSERT INTO Produto VALUES (730,'Counter-Strike: Global Offensive','2012-08-21','2021-08-17 15:28:46');''')
+cur.execute('''INSERT INTO Produto VALUES (730,'Counter-Strike: Global Offensive','2012-08-21','2021-08-17 15:28:46')
+  ;''')
 cur.execute('''INSERT INTO Produto VALUES (6784,'Touhou Dirutinea','2019-08-21','2021-11-20 20:22:46');''')
 cur.execute('''INSERT INTO Jogo VALUES(6784, false);''')
-cur.execute('''INSERT INTO Produto VALUES (391570,'UNDERTALE Soundtrack','2015-09-15','2021-10-01 04:05:00',NULL,19.99);''')
+cur.execute('''INSERT INTO Produto VALUES (391570,'UNDERTALE Soundtrack','2015-09-15','2021-10-01 04:05:00',NULL,19.99)
+  ;''')
 cur.execute('''INSERT INTO Jogo VALUES(730,false);''')
-cur.execute('''INSERT INTO Produto VALUES(271590,'Grand Theft Auto V','2015-04-13','2021-10-01 18:10:00',NULL,69.99);''')
+cur.execute('''INSERT INTO Produto VALUES(271590,'Grand Theft Auto V','2015-04-13','2021-10-01 18:10:00',NULL,69.99)
+  ;''')
 cur.execute('''INSERT INTO Jogo VALUES(271590,false);''')
 cur.execute('''INSERT INTO Produto VALUES(218620,'PAYDAY 2','2013-08-13','2021-10-01 10:07:00',NULL,23.99);''')
-cur.execute('''INSERT INTO Produto VALUES(1746580,'PAYDAY 2: Jiu Feng Smuggler Pack 3','2021-09-22','2021-10-3 18:07:47',NULL,8.69);''')
+cur.execute('''INSERT INTO Produto VALUES(1746580,'PAYDAY 2: Jiu Feng Smuggler Pack 3','2021-09-22','2021-10-3 18:07:47'
+  ,NULL,8.69);''')
 cur.execute('''INSERT INTO Jogo VALUES(218620,false);''')
 cur.execute('''INSERT INTO DLC VALUES(1746580,218620);''')
 
@@ -205,8 +214,10 @@ cur.execute('''INSERT INTO Genero VALUES('Luta');''')
 cur.execute('''INSERT INTO Genero VALUES('RPG');''')
 
 
-cur.execute('''INSERT INTO Conquista VALUES(1,'Someone Set Up Us The Bomb','Win a round by planting a bomb',false,NULL,730);''')
-cur.execute('''INSERT INTO Conquista VALUES(24,'Uma dinheirama','Gaste um total de $200 milhões entre todos os três personagens.',false,154654895,271590);''')
+cur.execute('''INSERT INTO Conquista VALUES(1,'Someone Set Up Us The Bomb','Win a round by planting a bomb',false,NULL,
+  730);''')
+cur.execute('''INSERT INTO Conquista VALUES(24,'Uma dinheirama','Gaste um total de $200 milhões entre todos os três 
+  personagens.',false,154654895,271590);''')
 
 cur.execute('''INSERT INTO Desenvolvedor VALUES (123,'Valve');''')
 cur.execute('''INSERT INTO Publicador VALUES (123,'Valve');''')
@@ -221,17 +232,26 @@ cur.execute('''INSERT INTO Amizade VALUES (2,3,'2021-10-03');''')
 cur.execute('''INSERT INTO Mensagem VALUES (2,3,'2021-10-03 21:52:00','Eu william gosto de sgbd');''')
 cur.execute('''INSERT INTO Mensagem VALUES (3,2,'2021-10-03 21:52:01','eu tb');''')
 
-cur.execute('''INSERT INTO Avaliacao VALUES (730,2,'2021-10-03',10,'Eu william aaaaaaaaaamo counter strike global offensive muuuito bom!!! Recomendo!!');''')
-cur.execute('''INSERT INTO Avaliacao VALUES (391570,2,'2021-10-03',0,'Eu william ODIEI a soundtrack do UNDERTALE. Me doeu os ouvidos. Melhor escutar um quadro sendo arranhado.');''')
+cur.execute('''INSERT INTO Avaliacao VALUES (730,2,'2021-10-03',10,'Eu william aaaaaaaaaamo counter strike global 
+  offensive muuuito bom!!! Recomendo!!');''')
+cur.execute('''INSERT INTO Avaliacao VALUES (391570,2,'2021-10-03',0,'Eu william ODIEI a soundtrack do UNDERTALE. Me 
+  doeu os ouvidos. Melhor escutar um quadro sendo arranhado.');''')
+cur.execute('''INSERT INTO Avaliacao VALUES (271590, 2, '2021-11-20', 5);''')
+cur.execute('''INSERT INTO Avaliacao VALUES (218620, 2, '2021-11-20', 2);''')
+cur.execute('''INSERT INTO Avaliacao VALUES (218620, 1, '2021-11-20', 5);''')
 
 cur.execute('''INSERT INTO Compra VALUES (730, 2, 'Boleto', '2013-10-02', 27.49);''')
 cur.execute('''INSERT INTO Compra VALUES (271590, 2, 'Boleto', '2018-10-02', 56.49);''')
 cur.execute('''INSERT INTO Compra VALUES (6784, 2, 'Boleto', '2013-10-02', 27.49);''')
-cur.execute('''INSERT INTO Compra VALUES (218620, 2, 'Boleto', '2018-10-02', 887.49);''')
+cur.execute('''INSERT INTO Compra VALUES (218620, 2, 'Agiota', '2018-10-02', 887.49);''')
 cur.execute('''INSERT INTO Compra VALUES (271590, 1, 'Boleto', '2013-10-02', 27.49);''')
 cur.execute('''INSERT INTO Compra VALUES (391570, 1, 'Boleto', '2018-10-02', 45.49);''')
 cur.execute('''INSERT INTO Compra VALUES (218620, 3, 'Boleto', '2013-10-02', 89.49);''')
 cur.execute('''INSERT INTO Compra VALUES (271590, 3, 'Boleto', '2018-10-02', 500.49);''')
+cur.execute('''INSERT INTO Compra VALUES (391570, 2, 'Boleto', '2018-10-02', 18.49);''')
+cur.execute('''INSERT INTO Categorizacao VALUES (730, 'FPS');''')
+cur.execute('''INSERT INTO Categorizacao VALUES (271590, 'Ação');''')
+cur.execute('''INSERT INTO Categorizacao VALUES (218620, 'FPS');''')
 
 cur.execute('''INSERT INTO Suporte VALUES (730, 'Linux');''')
 cur.execute('''INSERT INTO Suporte VALUES (730, 'Windows');''')
