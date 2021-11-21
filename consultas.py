@@ -135,22 +135,27 @@ def compras_usuario():
         WHERE Usuario.nome = %s'''
     cur.execute(cmd, (usuario,))
     dados = cur.fetchall()
-    print(f'\nCompras do usuário \'william\':\n')
+    print(f'\nCompras do usuário {usuario}:\n')
     for dado in dados:
-        print(f'Preço pago: R${dado[1]}\tPreço atual: R${dado[2]}\tJogo: {dado[0]}')
+        print(f'Preço pago: R${dado[1] if (dado[1] is not None) else "0.00"}\tPreço atual: R${dado[2] if (dado[2] is not None) else "0.00"}\tJogo: {dado[0]}')
 
 # Avaliações realizadas pelo usuário <usuario>.
 def avaliacoes_usuario():
+    usuario=input('Usuario: ')
     cmd = '''
         SELECT Produto.nome as nomeproduto, analise, nota
         FROM Usuario JOIN Avaliacao ON (Usuario.codigo = Avaliacao.codigousuario)
             JOIN Produto ON (Avaliacao.codigoproduto = Produto.codigo)
         WHERE Usuario.nome = %s'''
-    cur.execute(cmd, ('william',))
-    print(f'\nAvaliações do usuário \'william\':\n{cur.fetchall()}')
+    cur.execute(cmd, (usuario,))
+    dados = cur.fetchall()
+    print(f'\nAvaliações do usuário {usuario}:\n')
+    for dado in dados:
+        print(f'Produto: {dado[0]}\tNota: {dado[2]}\n{"Análise: " if (dado[1] is not None) else ""}{dado[1] if (dado[1] is not None) else ""}\n')
 
 # Ranking de gêneros de produtos que o usuário <usuario> possui.
 def generos_usuario():
+    usuario=input('Usuario: ')
     cmd = '''
         SELECT nomegenero, count(nomegenero) as numprodutos
         FROM Biblioteca JOIN Produto ON (Biblioteca.nomeproduto = Produto.nome)
@@ -159,19 +164,28 @@ def generos_usuario():
         GROUP BY nomegenero, Biblioteca.nome
         HAVING Biblioteca.nome = %s
         ORDER BY numprodutos DESC'''
-    cur.execute(cmd, ('william',))
-    print(f'\nRanking de gêneros do usuário \'william\':\n{cur.fetchall()}')
+    cur.execute(cmd, (usuario,))
+    dados = cur.fetchall()
+    print(f'\nRanking de gêneros do usuário {usuario}:\n')
+    index = 0
+    for dado in dados:
+        index += 1
+        print(f'{index}: {dado[0]}\t(Jogos na biblioteca: {dado[1]})')
 
 # Jogos que possuem média de nota maior que <nota>.
 def media_jogos():
+    nota=input('Nota minima: ')
     cmd = '''
         SELECT nome as nomejogo, AVG(nota) as medianotas
         FROM Produto JOIN Jogo ON (Produto.codigo = Jogo.codigoProduto) 
             JOIN Avaliacao ON (Avaliacao.codigoproduto = Produto.codigo)
         GROUP BY nomejogo
-        HAVING avg(nota) > %s'''
-    cur.execute(cmd, ('6',))
-    print(f'\nJogos com média maior que 6:\n{cur.fetchall()}\n')
+        HAVING avg(nota) > %s'''    
+    cur.execute(cmd, (nota,))
+    dados = cur.fetchall()
+    print(f'\nJogos com média maior que {nota}:\n')
+    for dado in dados:
+        print(f'{dado[0]} - Nota média: {str(dado[1])[:4]}')
 
 def encerrar():
     conn.close()

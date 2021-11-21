@@ -13,10 +13,13 @@ MENU = '''
     4: Usuários que possuem todos os jogos da publicadora <publi>
     5: Jogos que não possuem conquistas
     6: Mensagens enviadas pelo usuário <user>
-    7: Compras feitas pelo usuário <user>
+    7: Compras efetuadas pelo usuário <user>, comparação de preços pagos com os atuais
+    8: Avaliações realizadas pelo usuário <user>
+    9: Ranking de gêneros de produtos que o usuário <user> possui
+    10: Jogos que possuem média de nota maior que <nota>
     0: Encerrar sessão
 '''
-OPCOES = '01234567'
+OPCOES = '012345678910'
 FUNCOES = {
     '1': db.gasto_usuarios,
     '2': db.usuarios_jogos,
@@ -24,7 +27,10 @@ FUNCOES = {
     '4': db.usuarios_publi,
     '5': db.sem_conquistas,
     '6': db.msgs_usuario,
-    '7': db.compras_usuario
+    '7': db.compras_usuario,
+    '8': db.avaliacoes_usuario,
+    '9': db.generos_usuario,
+    '10': db.media_jogos
 }
 
 def sep(titulo: str):
