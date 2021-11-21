@@ -11,8 +11,9 @@ cur = conn.cursor()
 
 # Consultas ------------------------------------------------------------------------------------------------------------
 
-# Usuários que gastaram acima de <limite> reais.
-def gasto_usuarios(limite: float):
+# Usuários que gastaram mais de <limite> reais.
+def gasto_usuarios():
+    limite = input('Limite: R$ ')
     cmd = '''
         SELECT Biblioteca.nome, SUM(Compra.precopago)
         FROM Biblioteca JOIN Usuario ON (Biblioteca.nome = Usuario.nome)
@@ -20,8 +21,12 @@ def gasto_usuarios(limite: float):
             JOIN Compra ON (Compra.codigoproduto = Produto.codigo AND Compra.codigousuario = Usuario.codigo)
         GROUP BY Biblioteca.nome
         HAVING SUM(Compra.precopago) > %s'''
-    cur.execute(cmd, (str(limite),))
-    print(f'\nUsuários que gastaram mais de R$ {limite}:\n{cur.fetchall()}')
+    cur.execute(cmd, (limite,))
+    dados = cur.fetchall()
+
+    print(f'\nUsuários que gastaram mais de R$ {limite}:')
+    for dado in dados:
+        print(f'{dado[0]}: R$ {dado[1]}')
 
 # Quantidade de usuários que adquiriram cada jogo.
 def usuarios_jogos():
@@ -32,10 +37,22 @@ def usuarios_jogos():
         GROUP BY Produto.nome
         '''
     cur.execute(cmd)
-    print(f'\nQuantas pessoas tem cada jogo:\n{cur.fetchall()}')
+    dados = cur.fetchall()
 
-# Quais jogos não suportam o sistema <sistema>.
+    print('\nQuantidade de usuários que adquiriram cada jogo:')
+    for dado in dados:
+        print(f'{dado[0]}: {dado[1]} {"usuários" if (dado[1] > 1) else "usuário"}')
+
+# Quais produtos não suportam o sistema <sistema>.
 def suporte_sistema():
+    SISTEMAS = {
+        '1': 'Windows',
+        '2': 'Linux',
+        '3': 'macOS'
+    }
+    MENU = '\n    1: Windows\n    2: Linux\n    3: macOS\n'
+    sistema = SISTEMAS[input(f'{MENU}\nSistema: ')]
+
     cmd = '''
         SELECT Produto.nome as nomeproduto
         FROM Produto JOIN Suporte ON (Produto.codigo = Suporte.codigoProduto)
@@ -47,8 +64,12 @@ def suporte_sistema():
                 JOIN Sistema ON (Sistema.nome = Suporte.nomeSistema)
             WHERE nomesistema = %s
         )'''
-    cur.execute(cmd, ('Windows',))
-    print(f'\nQuais jogos não suportam meu sistema:\n{cur.fetchall()}')
+    cur.execute(cmd, (sistema,))
+    dados = cur.fetchall()
+
+    print(f'\nProdutos que não suportam o {sistema}:')
+    for dado in dados:
+        print(dado[0])
 
 # Usuários que possuem todos os jogos da publicadora <publi>.
 def usuarios_publi():

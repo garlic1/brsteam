@@ -3,17 +3,26 @@
 # Willian Nunes Reichert - 134090
 
 import sys
+import os
 import consultas as db
 
-OPCOES = '01'
-MENU = '1: Usuários que gastaram acima de <x> reais'
+MENU = '''
+    1: Usuários que gastaram mais de <x> reais
+    2: Quantidade de usuários que adquiriram cada jogo
+    3: Produtos que não suportam o sistema <x>
+    0: Encerrar sessão
+'''
+OPCOES = '0123'
 FUNCOES = {
-    '1': db.gasto_usuarios
+    '1': db.gasto_usuarios,
+    '2': db.usuarios_jogos,
+    '3': db.suporte_sistema
 }
 
 def sep(titulo: str):
     print(f'\n{titulo}\n' + 80 * '-')
 
+os.system('cls')
 opcao = ''
 while (opcao != '0'):
     sep('BRSteam')
@@ -21,7 +30,10 @@ while (opcao != '0'):
     while (opcao not in OPCOES):
         opcao = input(f'{MENU}\nOpção: ')
     if (opcao != '0'):
-        FUNCOES[opcao](500)
+        FUNCOES[opcao]()
+        input('\nPressione enter para retornar...')
+        os.system('cls')
 
 db.encerrar()
+os.system('cls')
 sys.exit(0)
