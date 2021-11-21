@@ -2,6 +2,7 @@
 # Gabriel Lima Chimifosk - 134078
 # Willian Nunes Reichert - 134090
 
+import sys
 import psycopg2 as ps
 
 conn = ps.connect('dbname=brsteam user=postgres password=123')
@@ -268,3 +269,4 @@ cur.execute(cmd)
 
 conn.commit()
 conn.close()
+sys.exit(0)
