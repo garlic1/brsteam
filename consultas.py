@@ -73,6 +73,7 @@ def suporte_sistema():
 
 # Usuários que possuem todos os jogos da publicadora <publi>.
 def usuarios_publi():
+    publicadora = input('Publicadora: ')
     cmd = '''
         SELECT nome
         FROM usuario as ext
@@ -87,8 +88,11 @@ def usuarios_publi():
                 WHERE codigousuario = ext.codigo
             )
         )'''
-    cur.execute(cmd, ('Valve',))
-    print(f'\nUsuários que possuem todos os produtos da publicadora:\n{cur.fetchall()}')
+    cur.execute(cmd, (publicadora.capitalize(),))
+    dados = cur.fetchall()
+    print(f'\nUsuários que possuem todos os produtos da publicadora {publicadora.capitalize()}:\n')
+    for dado in dados:
+        print(dado[0])
 
 # Jogos que não possuem conquistas.
 def sem_conquistas():
@@ -102,27 +106,38 @@ def sem_conquistas():
             JOIN Conquista ON (Jogo.codigoProduto = Conquista.codigoJogo)
         )'''
     cur.execute(cmd)
-    print(f'\nJogos que não possuem conquistas:\n{cur.fetchall()}')
+    dados = cur.fetchall()
+    print(f'\nJogos que não possuem conquistas:\n')
+    for dado in dados:
+        print(dado[0])
 
 # Mensagens enviadas pelo usuário <usuario>.
 def msgs_usuario():
+    usuario=input('Usuario: ')
     cmd = '''
         SELECT Usuario.nome as nomeusuario, conteudo, dataenvio
         FROM Usuario JOIN Mensagem ON (Usuario.codigo = Mensagem.codigoRemetente)
-            JOIN Amizade ON (Usuario.codigo = Amizade.codigoSolicitante)
+            LEFT JOIN Amizade ON (Usuario.codigo = Amizade.codigoSolicitante)
         WHERE Usuario.nome = %s'''
-    cur.execute(cmd, ('william',))
-    print(f'\nMensagens enviadas pelo usuário \'william\':\n{cur.fetchall()}')
+    cur.execute(cmd, (usuario,))
+    dados = cur.fetchall()
+    print(f'\nMensagens enviadas pelo usuário {usuario}:\n')
+    for dado in dados:
+        print(f'{dado[2]}: {dado[1]}')
 
 # Histórico de compras do usuário <usuario> com comparação dos preços pagos com os atuais.
 def compras_usuario():
+    usuario=input('Usuario: ')
     cmd = '''
         SELECT Produto.nome as nomeproduto, precopago, Produto.preco as precoatual
         FROM Usuario JOIN Compra ON (Usuario.codigo = Compra.codigousuario)
             JOIN Produto ON (Compra.codigoproduto = Produto.codigo)
         WHERE Usuario.nome = %s'''
-    cur.execute(cmd, ('william',))
-    print(f'\nCompras do usuário \'william\':\n{cur.fetchall()}')
+    cur.execute(cmd, (usuario,))
+    dados = cur.fetchall()
+    print(f'\nCompras do usuário \'william\':\n')
+    for dado in dados:
+        print(f'Preço pago: R${dado[1]}\tPreço atual: R${dado[2]}\tJogo: {dado[0]}')
 
 # Avaliações realizadas pelo usuário <usuario>.
 def avaliacoes_usuario():

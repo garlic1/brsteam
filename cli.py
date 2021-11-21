@@ -10,13 +10,21 @@ MENU = '''
     1: Usuários que gastaram mais de <x> reais
     2: Quantidade de usuários que adquiriram cada jogo
     3: Produtos que não suportam o sistema <x>
+    4: Usuários que possuem todos os jogos da publicadora <publi>
+    5: Jogos que não possuem conquistas
+    6: Mensagens enviadas pelo usuário <user>
+    7: Compras feitas pelo usuário <user>
     0: Encerrar sessão
 '''
-OPCOES = '0123'
+OPCOES = '01234567'
 FUNCOES = {
     '1': db.gasto_usuarios,
     '2': db.usuarios_jogos,
-    '3': db.suporte_sistema
+    '3': db.suporte_sistema,
+    '4': db.usuarios_publi,
+    '5': db.sem_conquistas,
+    '6': db.msgs_usuario,
+    '7': db.compras_usuario
 }
 
 def sep(titulo: str):
