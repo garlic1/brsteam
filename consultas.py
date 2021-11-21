@@ -34,13 +34,32 @@ cmd = '''
     SELECT Produto.nome as nomeproduto
     FROM Produto JOIN Suporte ON (Produto.codigo = Suporte.codigoProduto)
         JOIN Sistema ON (Sistema.nome = Suporte.nomeSistema)
-    WHERE Produto.nome NOT IN (
+    WHERE Produto.nome NOT IN
+    (
         SELECT Produto.nome as nomeproduto
         FROM Produto JOIN Suporte ON (Produto.codigo = Suporte.codigoProduto)
             JOIN Sistema ON (Sistema.nome = Suporte.nomeSistema)
         WHERE nomesistema = %s
-    );'''
+    )'''
 cur.execute(cmd, ('Windows',))
-print(f'\nQuais jogos não suportam meu sistema:\n{cur.fetchall()}\n')
+print(f'\nQuais jogos não suportam meu sistema:\n{cur.fetchall()}')
+
+# usuários que possuem todos os produtos da publicadora
+cmd = '''
+    SELECT nome
+    FROM usuario as ext
+    WHERE NOT EXISTS
+    (
+        SELECT codigoproduto
+        FROM Publicacao JOIN Publicador ON (Publicacao.codigopublicador = Publicador.codigo)
+        WHERE Publicador.nome = %s AND codigoproduto NOT IN
+        (
+            SELECT codigoproduto
+            FROM Compra
+            WHERE codigousuario = ext.codigo
+        )
+    )'''
+cur.execute(cmd, ('Valve',))
+print(f'\nUsuários que possuem todos os produtos da publicadora:\n{cur.fetchall()}\n')
 
 conn.close()

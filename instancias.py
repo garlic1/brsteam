@@ -211,6 +211,11 @@ cur.execute('''INSERT INTO Conquista VALUES(24,'Uma dinheirama','Gaste um total 
 cur.execute('''INSERT INTO Desenvolvedor VALUES (123,'Valve');''')
 cur.execute('''INSERT INTO Publicador VALUES (123,'Valve');''')
 
+cur.execute('''INSERT INTO Publicacao VALUES (6784, 123);''')
+cur.execute('''INSERT INTO Publicacao VALUES (730, 123);''')
+cur.execute('''INSERT INTO Publicacao VALUES (271590, 123);''')
+cur.execute('''INSERT INTO Publicacao VALUES (218620, 123);''')
+
 cur.execute('''INSERT INTO Amizade VALUES (2,3,'2021-10-03');''')
 
 cur.execute('''INSERT INTO Mensagem VALUES (2,3,'2021-10-03 21:52:00','Eu william gosto de sgbd');''')
@@ -220,7 +225,9 @@ cur.execute('''INSERT INTO Avaliacao VALUES (730,2,'2021-10-03',10,'Eu william a
 cur.execute('''INSERT INTO Avaliacao VALUES (391570,2,'2021-10-03',0,'Eu william ODIEI a soundtrack do UNDERTALE. Me doeu os ouvidos. Melhor escutar um quadro sendo arranhado.');''')
 
 cur.execute('''INSERT INTO Compra VALUES (730, 2, 'Boleto', '2013-10-02', 27.49);''')
-cur.execute('''INSERT INTO Compra VALUES (391570, 2, 'Boleto', '2018-10-02', 500.49);''')
+cur.execute('''INSERT INTO Compra VALUES (271590, 2, 'Boleto', '2018-10-02', 56.49);''')
+cur.execute('''INSERT INTO Compra VALUES (6784, 2, 'Boleto', '2013-10-02', 27.49);''')
+cur.execute('''INSERT INTO Compra VALUES (218620, 2, 'Boleto', '2018-10-02', 887.49);''')
 cur.execute('''INSERT INTO Compra VALUES (271590, 1, 'Boleto', '2013-10-02', 27.49);''')
 cur.execute('''INSERT INTO Compra VALUES (391570, 1, 'Boleto', '2018-10-02', 45.49);''')
 cur.execute('''INSERT INTO Compra VALUES (218620, 3, 'Boleto', '2013-10-02', 89.49);''')
