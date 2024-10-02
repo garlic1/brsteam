@@ -1,77 +1,79 @@
 # BRSTEAM
 
-O Steam é, atualmente, a maior plataforma para jogos digitais de computador. Integrado a ela há um sistema de perfis no qual os usuários podem se adicionar e compartilhar conteúdos relacionados aos jogos. Na loja, os usuários podem adquirir produtos, que são subdivididos em Jogos e Soundtracks; e também escrever avaliações sobre os produtos.
+Steam is currently the largest platform for digital computer games. Integrated with it is a profile system where users can add each other and share game-related content. In the store, users can purchase products, which are subdivided into Games and Soundtracks; they can also write reviews about the products.
 
-O objetivo deste projeto é modelar os principais dados da loja e as relações do banco de dados com o usuário, porém apenas para usuários brasileiros. Para isso, utilizamos certos dados disponíveis abertamente na loja do Steam (https://store.steampowered.com/).
+The goal of this project is to model the main data from the store and the database relations with the user, but only for Brazilian users. For this, we used certain openly available data from the Steam store (https://store.steampowered.com/).
 
-Utilizamos a linguagem Python 3.9, o SGBD PostgreSQL e a biblioteca psycopg2 para interagir com o servidor do PostgreSQL através de comandos em Python.
+We used Python 3.9, the PostgreSQL DBMS, and the psycopg2 library to interact with the PostgreSQL server via Python commands.
 
-## Demonstração
+## Demo (Brazilian Portuguese)
 https://youtu.be/UwriAmFzSCw
 
-## Como executar
-- clone o repositório para execução local
-- execute localmente uma instância do PostgreSQL
-- certifique-se que a versão do Python é 3.9
-- execute `pip install psycopg2`
-- execute `py instancias.py` para inicialização do banco de dados
-- execute `py cli.py`
-  
-## Consultas
-#### 1: Usuários que gastaram mais de [x] reais
-  
-Levanta estatísticas para o administrador saber quais usuários investiram mais na sua plataforma.
+## How to run:
 
-#### 2: Quantidade de usuários que adquiriram cada jogo
-  
-Levanta estatísticas para o administrador saber quais jogos são os mais populares.
+- Clone the repository for local execution.
+- Run a local instance of PostgreSQL.
+- Make sure your Python version is 3.9.
+- Run `pip install psycopg2`.
+- Run `py instancias.py` to initialize the database.
+- Run `py cli.py`.
 
-#### 3: Produtos que não suportam o sistema [x]
+## Queries
 
-Importante pro usuário saber se o jogo não suporta seu sistema.
+#### 1:Users who spent more than [x] reais
 
-#### 4: Usuários que possuem todos os jogos da publicadora [publi]
+Gathers statistics for the admin to identify which users have invested the most on the platform.
 
-A consulta pode ser usada pelo sistema para recomendar novos jogos de uma certa publicadora para potenciais clientes.
+#### 2: Number of users who purchased each game
 
-#### 5: Jogos que não possuem conquistas
-  
-Alguns jogadores se importam muito com conquistas, e podem não querer comprar jogos que não possuem conquistas cadastradas no sistema.
+Gathers statistics for the admin to know which games are the most popular.
 
-#### 6: Mensagens enviadas pelo usuário [user]
+#### 3: Products that don't support the [x] system
 
-Pode ser usado pelo administrador para consultar o histórico de mensagens do usuário, com intuito de verificar se há mensagens impróprias ou perigosas.
+Important for users to know if a game doesn't support their system.
 
-Usuários exemplo cadastrados:
-  - william
-  - alho
+#### 4: Users who own all games from the publisher [publi]
 
-#### 7: Compras efetuadas pelo usuário [user], comparação de preços pagos com os atuais
+This query can be used by the system to recommend new games from a certain publisher to potential customers.
 
-Consulta feita pelo próprio usuário para analisar seu histórico de compras.
+#### 5: Games without achievements
 
-#### 8: Avaliações realizadas pelo usuário [user]
+Some players care a lot about achievements and might not want to buy games that don't have achievements registered in the system.
 
-Usado pelo administrador para filtrar as avaliações a serem publicadas com base nas que o usuário já publicou, ou pelo próprio usuário para ver suas próprias avaliações.
+#### 6: Messages sent by the user [user]
 
-#### 9: Ranking de gêneros de produtos que o usuário [user] possui
+This can be used by the admin to check the user's message history to verify if there are inappropriate or harmful messages.
 
-Usada para recomendar gêneros personalizadamente para cada usuário.
+User examples:
+- william
+- alho
 
-#### 10: Jogos que possuem média de nota maior que [nota]
+#### 7: Purchases made by the user [user], comparison of prices paid with current prices
 
-Usuário pode pesquisar na loja apenas jogos que possuam boas avaliações.
+A query made by the user to analyze their purchase history.
 
-## Detalhes
+#### 8: Reviews made by the user [user]
 
-No banco de dados, modelamos:
-- os principais dados da loja (no caso, os produtos, como jogos e trilhas sonoras)
-- relações dos usuários com os produtos (como as compras, a inserção de avaliações com nota e texto para cada produto) 
-- as interações entre usuários, consolidada através de um sistema de amizade e troca de mensagens.
+Used by the admin to filter the reviews for publication based on what the user has already posted, or by the user themselves to see their own reviews.
 
-Utilizamos a linguagem Python 3.9, o SGBD PostgreSQL e a biblioteca psycopg2 para interagir com o servidor do PostgreSQL através de comandos em Python.
+#### 9: Ranking of product genres owned by the user [user]
 
-Detalhes técnicos adicionais do banco de dados podem ser consultados no arquivo `spec.pdf`. 
+Used to recommend personalized genres to each user.
 
-## Diagrama Entidade-relacionamento
+#### 10: Games with an average rating higher than [rating]
+
+The user can search the store for games with good ratings.
+
+## Details: 
+
+In the database, we modeled:
+- The main data from the store (such as products like games and soundtracks).
+User relationships with products (such as purchases and the submission of reviews with ratings and text for each product).
+- Interactions between users, consolidated through a friendship and messaging system.
+
+We used Python 3.9, PostgreSQL, and psycopg2 to interact with the PostgreSQL server via Python commands.
+
+Additional technical details about the database can be found in the `spec.pdf` file (brazilian portuguese).
+
+## Entity-Relationship Diagram (Brazilian Portuguese)
 ![image](https://github.com/user-attachments/assets/6ae3bfcb-d203-4881-af0b-a2f31f2b5c39)
